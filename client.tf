@@ -10,6 +10,12 @@ variable "default_client_subject" {
   default = {}
 }
 
+variable "client_csrs" {
+  type = map
+  description = "describe your variable"
+  default = {}
+}
+
 variable "client_certificate_validity" {
   type = number
   default = 43800
@@ -51,7 +57,21 @@ resource "tls_locally_signed_cert" "client" {
   ]
 }
 
+resource "pkcs12_from_pem" "client" {
+  for_each = var.clients
+  ca_pem          = tls_self_signed_cert.ca.cert_pem
+  cert_pem        = tls_locally_signed_cert.client[each.key].cert_pem
+  private_key_pem = tls_private_key.pem_client[each.key].private_key_pem
+  password = "123" # Testing purposes
+  encoding = "legacyRC2"
+}
+
 output "client_certificates" {
-  value = tls_locally_signed_cert.client
+  value = [ for cert in tls_locally_signed_cert.client : cert.cert_pem ]
+  sensitive = false
+}
+
+output "client_certificates_pkcs12" {
+  value = [ for cert in pkcs12_from_pem.client : cert.result ]
   sensitive = true
 }
