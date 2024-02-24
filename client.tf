@@ -1,24 +1,25 @@
 variable "clients" {
   type = map
-  description = "describe your variable"
+  description = "keys of machines to generate certificates for, values of the certificate subject"
   default = {}
 }
 
 variable "default_client_subject" {
   type = map
-  description = ""
+  description = "fallback values for certificate subjects, should the value of a server be null"
   default = {}
 }
 
 variable "client_csrs" {
   type = map
-  description = "describe your variable"
+  description = "csrs to use instead of generating them within this module"
   default = {}
 }
 
 variable "client_certificate_validity" {
   type = number
   default = 43800
+  description = "length of the validity of the certificate"
 }
 
 resource "tls_private_key" "pem_client" {
@@ -68,10 +69,12 @@ resource "pkcs12_from_pem" "client" {
 
 output "client_certificates" {
   value = [ for cert in tls_locally_signed_cert.client : cert.cert_pem ]
-  sensitive = false
+  description = "generated client certificates in ordered list form"
+  sensitive = true
 }
 
 output "client_certificates_pkcs12" {
   value = [ for cert in pkcs12_from_pem.client : cert.result ]
+  description = "combined ca certificate, private key and ca certificate in pkcs12 format"
   sensitive = true
 }

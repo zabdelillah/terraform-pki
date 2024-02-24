@@ -1,24 +1,25 @@
 variable "servers" {
   type = map
-  description = "describe your variable"
+  description = "keys of machines to generate certificates for, values of the certificate subject"
   default = {}
 }
 
 variable "default_server_subject" {
   type = map
-  description = ""
+  description = "fallback values for certificate subjects, should the value of a server be null"
   default = {}
 }
 
 variable "server_csrs" {
   type = map
-  description = "describe your variable"
+  description = "csrs to use instead of generating them within this module"
   default = {}
 }
 
 variable "server_certificate_validity" {
   type = number
   default = 43800
+  description = "length of the validity of the certificate"
 }
 
 resource "tls_private_key" "pem_server" {
@@ -69,10 +70,12 @@ resource "pkcs12_from_pem" "server" {
 
 output "server_certificates" {
   value = [ for cert in tls_locally_signed_cert.server : cert.cert_pem ]
-  sensitive = false
+  description = "generated server certificate"
+  sensitive = true
 }
 
 output "server_certificates_pkcs12" {
   value = [ for cert in pkcs12_from_pem.server : cert.result ]
+  description = "combined ca certificate, private key and ca certificate in pkcs12 format"
   sensitive = true
 }

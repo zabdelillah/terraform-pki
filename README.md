@@ -42,23 +42,23 @@ No modules.
 | <a name="input_ca_org"></a> [ca\_org](#input\_ca\_org) | n/a | `string` | n/a | yes |
 | <a name="input_ca_org_name"></a> [ca\_org\_name](#input\_ca\_org\_name) | n/a | `string` | n/a | yes |
 | <a name="input_ca_province"></a> [ca\_province](#input\_ca\_province) | n/a | `string` | n/a | yes |
-| <a name="input_ca_validity"></a> [ca\_validity](#input\_ca\_validity) | n/a | `number` | `43800` | no |
-| <a name="input_client_certificate_validity"></a> [client\_certificate\_validity](#input\_client\_certificate\_validity) | n/a | `number` | `43800` | no |
-| <a name="input_client_csrs"></a> [client\_csrs](#input\_client\_csrs) | describe your variable | `map` | `{}` | no |
-| <a name="input_clients"></a> [clients](#input\_clients) | describe your variable | `map` | `{}` | no |
-| <a name="input_default_client_subject"></a> [default\_client\_subject](#input\_default\_client\_subject) | n/a | `map` | `{}` | no |
-| <a name="input_default_server_subject"></a> [default\_server\_subject](#input\_default\_server\_subject) | n/a | `map` | `{}` | no |
+| <a name="input_ca_validity"></a> [ca\_validity](#input\_ca\_validity) | length of the validity of the certificate | `number` | `43800` | no |
+| <a name="input_client_certificate_validity"></a> [client\_certificate\_validity](#input\_client\_certificate\_validity) | length of the validity of the certificate | `number` | `43800` | no |
+| <a name="input_client_csrs"></a> [client\_csrs](#input\_client\_csrs) | csrs to use instead of generating them within this module | `map` | `{}` | no |
+| <a name="input_clients"></a> [clients](#input\_clients) | keys of machines to generate certificates for, values of the certificate subject | `map` | `{}` | no |
+| <a name="input_default_client_subject"></a> [default\_client\_subject](#input\_default\_client\_subject) | fallback values for certificate subjects, should the value of a server be null | `map` | `{}` | no |
+| <a name="input_default_server_subject"></a> [default\_server\_subject](#input\_default\_server\_subject) | fallback values for certificate subjects, should the value of a server be null | `map` | `{}` | no |
 | <a name="input_default_subject"></a> [default\_subject](#input\_default\_subject) | n/a | `map` | <pre>{<br>  "cn": "zabdelillah.private_ca_chain",<br>  "country": "Canada",<br>  "locality": "Montreal",<br>  "org": "Zak Abdel-Illah",<br>  "ou": "Terraform Module"<br>}</pre> | no |
-| <a name="input_server_certificate_validity"></a> [server\_certificate\_validity](#input\_server\_certificate\_validity) | n/a | `number` | `43800` | no |
-| <a name="input_server_csrs"></a> [server\_csrs](#input\_server\_csrs) | describe your variable | `map` | `{}` | no |
-| <a name="input_servers"></a> [servers](#input\_servers) | describe your variable | `map` | `{}` | no |
+| <a name="input_server_certificate_validity"></a> [server\_certificate\_validity](#input\_server\_certificate\_validity) | length of the validity of the certificate | `number` | `43800` | no |
+| <a name="input_server_csrs"></a> [server\_csrs](#input\_server\_csrs) | csrs to use instead of generating them within this module | `map` | `{}` | no |
+| <a name="input_servers"></a> [servers](#input\_servers) | keys of machines to generate certificates for, values of the certificate subject | `map` | `{}` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_ca_certificate"></a> [ca\_certificate](#output\_ca\_certificate) | n/a |
-| <a name="output_client_certificates"></a> [client\_certificates](#output\_client\_certificates) | n/a |
-| <a name="output_client_certificates_pkcs12"></a> [client\_certificates\_pkcs12](#output\_client\_certificates\_pkcs12) | n/a |
-| <a name="output_server_certificates"></a> [server\_certificates](#output\_server\_certificates) | n/a |
-| <a name="output_server_certificates_pkcs12"></a> [server\_certificates\_pkcs12](#output\_server\_certificates\_pkcs12) | n/a |
+| <a name="output_ca_certificate"></a> [ca\_certificate](#output\_ca\_certificate) | generated ca certificate |
+| <a name="output_client_certificates"></a> [client\_certificates](#output\_client\_certificates) | generated client certificates in ordered list form |
+| <a name="output_client_certificates_pkcs12"></a> [client\_certificates\_pkcs12](#output\_client\_certificates\_pkcs12) | combined ca certificate, private key and ca certificate in pkcs12 format |
+| <a name="output_server_certificates"></a> [server\_certificates](#output\_server\_certificates) | generated server certificate |
+| <a name="output_server_certificates_pkcs12"></a> [server\_certificates\_pkcs12](#output\_server\_certificates\_pkcs12) | combined ca certificate, private key and ca certificate in pkcs12 format |

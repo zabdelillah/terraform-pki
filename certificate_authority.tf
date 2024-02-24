@@ -25,6 +25,7 @@ variable "ca_org_name" {
 variable "ca_validity" {
   type = number
   default = 43800
+  description = "length of the validity of the certificate"
 }
 
 /**
@@ -59,4 +60,6 @@ resource "tls_self_signed_cert" "ca" {
 
 output "ca_certificate" {
   value = tls_self_signed_cert.ca.cert_pem
+  sensitive = true
+  description = "generated ca certificate"
 }
