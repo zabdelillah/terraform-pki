@@ -68,7 +68,7 @@ resource "pkcs12_from_pem" "server" {
 }
 
 output "server_keys" {
-  value       = [for cert in tls_locally_signed_cert.server : cert.private_key_pem]
+  value       = [for cert in tls_private_key.pem_server : cert.private_key_pem]
   description = "generated server certificate"
   sensitive   = true
 }

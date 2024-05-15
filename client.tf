@@ -68,7 +68,7 @@ resource "pkcs12_from_pem" "client" {
 }
 
 output "client_keys" {
-  value       = [for cert in tls_locally_signed_cert.client : cert.private_key_pem]
+  value       = [for cert in tls_private_key.pem_client : cert.private_key_pem]
   description = "generated client certificates in ordered list form"
   sensitive   = true
 }
